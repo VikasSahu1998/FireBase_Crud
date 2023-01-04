@@ -1,0 +1,80 @@
+<div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddNoteModal"
+        data-bs-whatever="@mdo">Create Notes</button>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let note of notesData">
+            <div class="card card-body">
+                <h2>{{note.note_title}}</h2>
+                <p class="text-muted">
+                   {{note.note_dec}}
+                </p>
+                <div class="d-flex align-items-center">
+                    <span class="mx-2">
+                        <i class="bi bi-pen" data-bs-target="#EditNoteModal"
+                        data-bs-toggle="modal" (click)="getAllNoteDetails(note)" ></i>
+                    </span>
+                    <span class="mx-2">
+                        <i class="bi bi-trash" (click)="deleteNote(note)"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add daily modal -->
+    <div class="modal fade" id="AddNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Daily Notes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="noteForm">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Note Title:</label>
+                            <input type="text" formControlName="title" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Note Description:</label>
+                            <textarea class="form-control" formControlName="decription" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" (click)="addNote()" [disabled]="noteForm.invalid" class="btn btn-primary">Add Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- edit daily modal -->
+    <div class="modal fade" id="EditNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Edit Daily Notes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="editForm">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Note Title:</label>
+                            <input type="text" formControlName="edit_title" [value]="noteDetails?.note_title" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Note Description:</label>
+                            <textarea class="form-control" [value]="noteDetails?.note_dec" formControlName="edit_decription" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="updateNote(noteDetails)">Update Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fire-crud-6cdd9": {
+      "hosting": {
+        "notes": [
+          "fire-crud-6cdd9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fire-crud-6cdd9"
+  }
+}
